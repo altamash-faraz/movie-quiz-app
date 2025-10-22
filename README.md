@@ -132,12 +132,17 @@ NEXT_PUBLIC_TMDB_IMAGE_BASE=https://image.tmdb.org/t/p
 
 ## Getting TMDb API Key 🔑
 
+**The app works without an API key using mock data for testing!**
+
+For real movie data (optional):
 1. Go to [TMDb website](https://www.themoviedb.org/)
 2. Create a free account
 3. Go to Settings → API
 4. Request an API key (choose "Developer" option)
 5. Fill out the form with your application details
 6. Copy your API key and add it to backend `.env` file
+
+**Note:** If TMDb is unavailable or no API key is provided, the app automatically uses mock movie data with popular Hollywood and Bollywood films.
 
 ## Project Structure 📁
 

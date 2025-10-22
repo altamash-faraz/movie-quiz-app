@@ -80,13 +80,22 @@ class QuizGeneratorService {
     const cast = movie.credits.cast.slice(0, 10);
     const correctActor = cast[Math.floor(Math.random() * Math.min(3, cast.length))];
     
-    // Get wrong options from other cast members or random actors
+    // Get wrong options from other cast members
     const wrongOptions = cast
       .filter(actor => actor.id !== correctActor.id)
       .slice(0, 3)
       .map(actor => actor.name);
 
-    const options = this.shuffleArray([correctActor.name, ...wrongOptions]);
+    // If not enough wrong options, add some generic names
+    while (wrongOptions.length < 3) {
+      const genericNames = ['Tom Smith', 'Jane Doe', 'John Anderson', 'Mary Johnson', 'Robert Brown'];
+      const randomName = genericNames[Math.floor(Math.random() * genericNames.length)];
+      if (!wrongOptions.includes(randomName) && randomName !== correctActor.name) {
+        wrongOptions.push(randomName);
+      }
+    }
+
+    const options = this.shuffleArray([correctActor.name, ...wrongOptions.slice(0, 3)]);
 
     return {
       questionText: `Who acted in the movie "${movie.title}"?`,
